@@ -2,18 +2,16 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 
-import { Home } from "./views/home";
+import { Home } from "./views/Home.jsx";
 import { Demo } from "./views/demo";
 import { Single } from "./views/single";
 import { Users } from "./views/Users.jsx";
 import { UserDetails } from "./views/UserDetails.jsx";
-import { UserDetalle } from "./views/UserDetalle.jsx";
 import { Posts } from "./views/Posts.jsx";
-import { Product } from "./views/Product.jsx";
 
 import injectContext from "./store/appContext";
 
-import { Navbar } from "./component/navbar";
+import { Navbar } from "./component/Navbar.jsx";
 import { Footer } from "./component/footer";
 
 //create your first component
@@ -30,12 +28,11 @@ const Layout = () => {
 					<Routes>
 						<Route path="/" element={<Home />} />
 						<Route path="/users" element={<Users/>} />
-						<Route path="/users/:userId" element={<UserDetalle/>}/>
+						<Route path="/users/:userId" element={<UserDetails/>}/>
 						<Route path="/posts" element={<Posts/>}/>
 						<Route path="/demo" element={<Demo />} />
 						<Route path="/single/:theid" element={<Single />} />
 						<Route path="*" element={<h1>Not found!</h1>} />
-						<Route path="/:category/:producto/:marca" element={<Product/>} />
 					</Routes>
 					<Footer />
 				</ScrollToTop>
