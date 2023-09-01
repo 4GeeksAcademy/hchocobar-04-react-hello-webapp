@@ -1,12 +1,12 @@
-import React from "react";  // 1. importar el hook useContext
-// 2. importar Context desde appContext.js
+import React, { useContext } from "react";  // 1. importar el hook useContext
+import { Context } from "../store/appContext.js";  // 2. importar Context desde appContext.js
 
 
 export const BtnFavorites = () => {
   // 3. desetructurar [store, actions] usando el hook useContext
+  const { store, actions } = useContext(Context);
 
-  let myFavorites = [{id: "Hola soy el Id"}]
-  // let myFovorites = store.favorites;   // definido en flux
+  const myFavorites = store.favorites;
 
   return (
     <div className="dropdown">
@@ -20,11 +20,11 @@ export const BtnFavorites = () => {
         {myFavorites.length === 0 ? (
             <li><span className="dropdown-item">No favorites selected</span></li>
         ) : (
-          myFavorites.map((item) => (
-            <li key={item.id} className="d-flex align-items-center">
-              <span className="dropdown-item">{item.id}</span>
+          myFavorites.map((item, id) => (
+            <li key={id} className="d-flex align-items-center">
+              <span className="dropdown-item">{item}</span>
               <button type="button" className="btn btn-outline-danger me-2"
-                onClick={() => actions.removeFavorite(item, myFavorites)}>
+                onClick={() => {actions.removeFavorite(id)}}>
                 <i className="fa fa-trash"></i>
               </button>
             </li>

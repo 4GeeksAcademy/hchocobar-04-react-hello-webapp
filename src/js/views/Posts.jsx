@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";  // 1. importar useContext
+import React, { useState, useContext } from "react";  // 1. importar useContext
 import { Spinner } from "../component/Spinner.jsx";
-// 2. importar Context desde appContext
+import { Context } from "../store/appContext.js" // 2. importar Context desde appContext
 
 export const Posts = () => {
   // 3. [store, actions] desestructurar el useContext()
+  const { store, actions } = useContext(Context)
   const [posts, setPosts] = useState(JSON.parse(localStorage.getItem('postsLocal')));  // post es un ESTADO de REACT
   const [users, setUsers] = useState(JSON.parse(localStorage.getItem("usersLocal")));
 
@@ -73,7 +74,7 @@ export const Posts = () => {
       {!posts || !users ? 
         <Spinner/>
       :
-        posts.map((post) => 
+        posts.map((post, id) => 
           <div className="card text-start">
             <div className="card-body">
               <h5 className="card-title">{post.title}</h5>
@@ -81,7 +82,7 @@ export const Posts = () => {
               <p className="card-text">{post.body}</p>
             </div>
             <div className="card-footer text-end">
-              <button className="btn btn-danger" onClick={() => {}}>
+              <button className="btn btn-danger" onClick={() => {actions.addFavorite(post.title)}}>
                 <i className="fas fa-heart"></i>
               </button>
             </div>
