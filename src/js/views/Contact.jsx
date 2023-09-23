@@ -10,11 +10,10 @@ export const Contact = () => {
     <div className="container">
       <h1 className="text-primary">{store.titulo}</h1>
       <ul>
-        {store.users.map((user) => <li>Name: {user.full_name} | email: {user.email}</li> )}
+        {store.users.map((user) => 
+          <ContactCard name={user.full_name} email={user.email} phone={user.phone}/>
+        )}
       </ul>
-      <ContactCard />
-
-
     </div>
   )
 };
