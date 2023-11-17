@@ -36,8 +36,9 @@ const injectContext = (PassedComponent) => {
 			state.actions.loadSomeData(); <---- calling this function from the flux.js actions
 			
 			Esta función es equivalente a "window.onload", y solo se ejecuta cuando se inicia la aplicación.
-
 			*/
+			state.actions.getUsers();
+			
 		}, []);
 
 		/* 
