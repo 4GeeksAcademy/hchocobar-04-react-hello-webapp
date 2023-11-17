@@ -3,20 +3,16 @@ import getState from "./flux.js";
 
 
 /* 
-- Don't change, here is where we initialize our context, 
-  by default it's just going to be null.
-- No cambie esto, aquí es donde nosotros inicializamos nuestro contexto,
-  por default, siempre lo iniciaremos en null
+- Don't change, here is where we initialize our context, by default it's just going to be null.
+- No cambie esto, aquí es donde nosotros inicializamos nuestro contexto, por default, siempre lo iniciaremos en null
 */
 export const Context = React.createContext(null);
 
 
 /* 
-- This function injects the global store to any view/component where you want to use it, 
-  we will inject the context to layout.js, you can see it here:
+- This function injects the global store to any view/component where you want to use it, we will inject the context to layout.js, you can see it here:
   https://github.com/4GeeksAcademy/react-hello-webapp/blob/master/src/js/layout.js#L35
-- Esta función inyecta el 'global store' a cualquier vista o componente donde deseemos usarlo.
-  nosotros inyectaremos el contecto a Layout.jsx, 
+- Esta función inyecta el 'global store' en cualquier vista/componente donde deseemos usarlo. Nosotros inyectaremos el contecto a Layout.jsx, 
 */
 const injectContext = (PassedComponent) => {
 	const StoreWrapper = (props) => {
@@ -25,22 +21,22 @@ const injectContext = (PassedComponent) => {
 			getState({
 				getStore: () => state.store,
 				getActions: () => state.actions,
-				setStore: (updatedStore) => setState({
-						store: Object.assign(state.store, updatedStore),
-						actions: { ...state.actions }
-					})
+				setStore: (updatedStore) => setState({store: Object.assign(state.store, updatedStore),
+						                                  actions: { ...state.actions }})
 			})
 		);
 
 		useEffect(() => {
 			/*
-			   EDIT THIS!
-			   This function is the equivalent to "window.onLoad", it only runs once on the entire application lifetime
-			   you should do your ajax requests or fetch api requests here. Do not use setState() to save data in the
-			   store, instead use actions, like this:
+			EDIT THIS!
+			This function is the equivalent to "window.onLoad", it only runs once on the entire application lifetime
+			you should do your ajax requests or fetch api requests here. Do not use setState() to save data in the
+			store, instead use actions, like this:
 			  
-			   state.actions.loadSomeData(); <---- calling this function from the flux.js actions
-			  
+			state.actions.loadSomeData(); <---- calling this function from the flux.js actions
+			
+			Esta función es equivalente a "window.onload", y solo se ejecuta cuando se inicia la aplicación.
+
 			*/
 		}, []);
 
