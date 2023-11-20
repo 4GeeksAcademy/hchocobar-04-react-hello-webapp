@@ -7,7 +7,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			isLogin: false,
 			myArray: [],
 			myObjeto: {},
-			users: []
+			users: [],
+			favorites: [{name: 'primer favorito'}, {name: 'segundo favorito'}]
 		},
 		actions: {
 			exampleFunction: () => {getActions().changeColor(0, "green");},  // Use getActions to call a function within a fuction
@@ -24,7 +25,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ demo: demo });  // Reset the global store
 			},
 			getUsers: async () => {
-				const url = 'https://jsonplaceholder.typicode.com/users';
+				const urlBase = 'https://playground.4geeks.com/apis/fake/contact/agenda'
+				const slugAgenda = '/spain50'
+				const url = urlBase + slugAgenda;
 				const options = {
 					method: 'GET'
 				};
@@ -32,10 +35,42 @@ const getState = ({ getStore, getActions, setStore }) => {
 				if (response.ok) {
 					const data = await response.json()
 					setStore({ "users": data })
+					localStorage.setItem('usersLocal', JSON.stringify(data));
 				} else {
 					console.log('Error:', response.status, response.statusText)
 				}
 				return
+			},
+			createContact: async (newContact) => {
+				const urlBase = 'https://playground.4geeks.com/apis/fake/contact/'
+				const slugAgenda = '/spain50'
+				const url = urlBase;
+				console.log(newContact)
+				const options = {
+					method: 'POST',
+					headers: {'Content-Type': 'application/json'},
+					body: JSON.stringify(newContact)
+				};
+				const response = await fetch(url, options);
+				if (response.ok) {
+					const data = await response.json()
+					getActions().getUsers();
+
+				} else {
+					console.log('Error:', response.status, response.statusText)
+				}
+				return
+			},
+			deleteContact: async (id) => {
+				// url = urlBase + id
+				// options (delete)
+				// response = await fetch( url, options)
+				// if response.ok ----> 
+						// data = await response.json()
+						// 					getActions().getUsers();
+
+				// sino es ok...
+				   // tratamiendo del error
 			}
 		}
 	};

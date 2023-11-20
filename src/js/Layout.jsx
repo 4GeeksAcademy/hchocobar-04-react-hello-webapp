@@ -12,6 +12,7 @@ import { AddContact } from "./views/AddContact.jsx";
 // Importamos componentes
 import { Navbar } from "./component/Navbar.jsx";
 import { Footer } from "./component/Footer.jsx";
+import { ContactDetails } from "./views/ContactDetails.jsx";
 
 
 // Create your first component
@@ -22,13 +23,14 @@ const Layout = () => {
 
 	
 	return (
-		<div>
+		<div className="h-100 d-flex flex-column">
 			<BrowserRouter basename={basename}>
 				<ScrollToTop>
 					<Navbar />
 					<Routes>
 						<Route path="/" element={<Home />} />
 						<Route path='/contact' element={<Contact/>}/>
+						<Route path="/contacts/:contactId" element={<ContactDetails/>}/>
 						<Route path='/add-contact' element={<AddContact/>} />
 						<Route path="/demo" element={<Demo />} />
 						<Route path="/single/:theid" element={<Single />} />

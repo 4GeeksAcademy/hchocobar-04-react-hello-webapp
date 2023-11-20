@@ -1,6 +1,7 @@
 import React, { useContext } from "react";  // 1. importar el hook 
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext.js";  // 2. Importar el Context
+import { BtnFavorites } from "./BtnFavorites.jsx";
 
 export const Navbar = () => {
 	const { store, actions } = useContext(Context) // 3. desestructurar store y actions
@@ -18,6 +19,7 @@ export const Navbar = () => {
 					<button className="btn btn-primary">Add Contact</button>
 				</Link>
 			</div>
+			<BtnFavorites/>
 		</nav>
 	);
 };
