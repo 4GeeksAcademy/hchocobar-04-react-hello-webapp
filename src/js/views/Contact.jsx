@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 
 export const Contact = () => {
   const { store, actions } = useContext(Context)  // 3. desestructurar store y actions desde hook (Context)
-  console.log(store.cohorte)
 
   const urlImg = 'https://starwars-visualguide.com/assets/img/characters/'
 
@@ -17,8 +16,11 @@ export const Contact = () => {
 
   }
 
-  const handleDelete = () => {
-    // llamar un actions.deleteContact() 
+  const handleDelete = (id) => {
+    // llamar un actions.deleteContact()
+    /* const newList = store.users.filter((item) => item.id !== id)
+    console.log(newList) */
+    actions.deleteContact(id);
 
   }
 
@@ -31,10 +33,10 @@ export const Contact = () => {
           return (
             <div className="card" key={id}>
               <div className="row">
-
                 <div className="col-md-3">
-                  <img src={`${urlImg}${position}.jpg`} onError={handleError} className="card-img-top"
-                    style={{ width: '100px' }} alt="..." />
+                  <img src={`${urlImg}${position}.jpg`} onError={handleError} 
+                    className="img-fluid rounded-start" alt="..." 
+                    style={{ width: '150px' }}/>
                 </div>
                 <div className="col-md-7">
                   <div className="card-body">
@@ -47,7 +49,9 @@ export const Contact = () => {
                   </div>
                 </div>
                 <div className="col-md-2">
-                  <span onClick={handleDelete}><i className="fa fa-trash"></i> </span>
+                  <div className="card-body">
+                    <span onClick={() => handleDelete(item.id)}><i className="fa fa-trash fa-lg text-danger"></i></span>
+                  </div>
                 </div>
               </div>
             </div>

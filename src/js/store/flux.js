@@ -62,15 +62,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 				return
 			},
 			deleteContact: async (id) => {
-				// url = urlBase + id
-				// options (delete)
-				// response = await fetch( url, options)
-				// if response.ok ----> 
-						// data = await response.json()
-						// 					getActions().getUsers();
-
-				// sino es ok...
-				   // tratamiendo del error
+				const urlBase = 'https://playground.4geeks.com/apis/fake/contact/'
+				const url = urlBase + id
+				const options = {
+					method: 'DELETE'
+				}
+				const response = await fetch(url, options)
+				if (response.ok) {
+					const data = await response.json()
+					getActions().getUsers();
+				} else {
+					// tratamiendo del error
+					console.log('Error:', response.status, response.statusText)
+				}
 			}
 		}
 	};
