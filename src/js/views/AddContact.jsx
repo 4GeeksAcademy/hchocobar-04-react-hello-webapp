@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Context } from '../store/appContext.js'
-// useNavigate desde react-router-dom
+// 1. useNavigate desde react-router-dom
+import { useNavigate } from "react-router-dom";
 
 
 export const AddContact = () => {
@@ -9,7 +10,8 @@ export const AddContact = () => {
   const [ address, setAddress ] = useState("");
   const [ phone , setPhone ] = useState("");
   const [ email, setEmail ] = useState("");
-  // const navigate = useNavigate()
+  // 2. const navigate = useNavigate()
+  navigate = useNavigate()
 
   const handleOnSubmit = (event) => {
     event.preventDefault();
@@ -18,9 +20,11 @@ export const AddContact = () => {
       address: address, 
       phone: phone, 
       email, 
-      agenda_slug: 'spain50'}
+      agenda_slug: 'spain50'
+    }
     actions.createContact(newContact)
-    // navigate('/contact')
+    // 3. navigate('/contact')
+    navigate('/contact')
   }
 
   return (
