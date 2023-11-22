@@ -11,7 +11,7 @@ export const AddContact = () => {
   const [ phone , setPhone ] = useState("");
   const [ email, setEmail ] = useState("");
   // 2. const navigate = useNavigate()
-  navigate = useNavigate()
+  const navigate = useNavigate()
 
   const handleOnSubmit = (event) => {
     event.preventDefault();
