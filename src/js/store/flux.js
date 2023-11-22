@@ -1,79 +1,61 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			demo: [{title: "FIRST", background: "white", initial: "white"},
- 						 {title: "SECOND", background: "white", initial: "white"}],
 			cohorte: 'Spain-50',
 			isLogin: false,
-			myArray: [],
-			myObjeto: {},
-			users: [],
-			favorites: [{name: 'primer favorito'}, {name: 'segundo favorito'}]
+			favorites: ['item 1', 'item 2', 'item 3'],
+			characters: [],
+			currentCharacters: {},
+			planets: [],
 		},
 		actions: {
-			exampleFunction: () => {getActions().changeColor(0, "green");},  // Use getActions to call a function within a fuction
-			loadSomeData: () => { /*fetch().then().then(data => setStore({ "foo": data.bar }))*/ },
-			changeColor: (index, color) => {
-				const store = getStore();  // Get the store
-				// We have to loop the entire demo array to look for the respective index and change its color
-				const demo = store.demo.map((element, i) => {
-					if (i === index) {
-						element.background = color
-					};
-					return element;
-				});
-				setStore({ demo: demo });  // Reset the global store
+			addFavorites: (item) => {
+				const store = getStore();
+				setStore({favorites: [...store.favorites, item ]})  // opcion 1
+				// setStore({favorites: [ ...getStore().favorites, item  ]})  // opcion 2
 			},
-			getUsers: async () => {
-				const urlBase = 'https://playground.4geeks.com/apis/fake/contact/agenda'
-				const slugAgenda = '/spain50'
-				const url = urlBase + slugAgenda;
-				const options = {
-					method: 'GET'
-				};
+			removeFavorites: (name) => {
+				const store = getStore();
+				setStore({favorites: store.favorites.filter( (item, id) => { return item != name; }  )})
+			},
+			getCharacters: async () => {
+				// const url = 'https://www.swapi.tech/api/' + 'people';
+				const url = process.env.API_URL + 'people';
+				const options = {method: 'GET'};
+				const response = await fetch(url, options);
+				// console.log('response: ',response);
+				if (response.ok) {
+					const data = await response.json();
+					// console.log('data', data)
+					// console.log('data.message', data.message)
+					// console.log('data.results', data.results)
+					// 1. grabar los datos en el store
+					setStore({ characters: data.results })
+					// 2. grabar los datos en el localStorage
+					localStorage.setItem('characters', JSON.stringify(data.results))
+				} else {
+					// tratamos el error
+					console.log('Error:', response.status, response.statusText);
+				}
+			},
+			getCharactersDetails: async (id) => {
+				const url = process.env.API_URL + 'people/' + id;
+				const options = {method: 'GET'};
 				const response = await fetch(url, options);
 				if (response.ok) {
-					const data = await response.json()
-					setStore({ "users": data })
-					localStorage.setItem('usersLocal', JSON.stringify(data));
+					const data = await response.json();
+					console.log('data', data)
+					console.log('data.message', data.message)
+					console.log('data.result', data.result)   // va a pasar algo
+					console.log('descripiton', data.result.description)
+					console.log('properties', data.result.properties)
+					// 1. grabar los datos en el store
+					setStore({ currentCharacters: data.result })
+					// 2. grabar los datos en el localStorage
+					// localStorage.setItem('characters', JSON.stringify(data.results))
 				} else {
-					console.log('Error:', response.status, response.statusText)
-				}
-				return
-			},
-			createContact: async (newContact) => {
-				const urlBase = 'https://playground.4geeks.com/apis/fake/contact/'
-				const slugAgenda = '/spain50'
-				const url = urlBase;
-				console.log(newContact)
-				const options = {
-					method: 'POST',
-					headers: {'Content-Type': 'application/json'},
-					body: JSON.stringify(newContact)
-				};
-				const response = await fetch(url, options);
-				if (response.ok) {
-					const data = await response.json()
-					getActions().getUsers();
-
-				} else {
-					console.log('Error:', response.status, response.statusText)
-				}
-				return
-			},
-			deleteContact: async (id) => {
-				const urlBase = 'https://playground.4geeks.com/apis/fake/contact/'
-				const url = urlBase + id
-				const options = {
-					method: 'DELETE'
-				}
-				const response = await fetch(url, options)
-				if (response.ok) {
-					const data = await response.json()
-					getActions().getUsers();
-				} else {
-					// tratamiendo del error
-					console.log('Error:', response.status, response.statusText)
+					// tratamos el error
+					console.log('Error:', response.status, response.statusText);
 				}
 			}
 		}
@@ -81,3 +63,21 @@ const getState = ({ getStore, getActions, setStore }) => {
 };
 
 export default getState;
+
+/* 
+Syntax into actions:
+
+1. Usar getActions() para llamar a otra actions(function) dentro de una actions(fuction)
+	getActions().changeColor(0, "green")
+
+2. Utilizar getStore() para acceder al valor de un "store" dentro de un "actions"
+		2.1
+			const store = getStore();
+			store.demo.map()
+		2.2
+			getStore().demo.map()
+
+3. Utilizar setStore() para guardar un valor en un "store" (recordar que store es un objeto)
+	setStore({ demo: demo });
+
+*/

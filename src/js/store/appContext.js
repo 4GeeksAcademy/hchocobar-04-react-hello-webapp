@@ -27,18 +27,7 @@ const injectContext = (PassedComponent) => {
 		);
 
 		useEffect(() => {
-			/*
-			EDIT THIS!
-			This function is the equivalent to "window.onLoad", it only runs once on the entire application lifetime
-			you should do your ajax requests or fetch api requests here. Do not use setState() to save data in the
-			store, instead use actions, like this:
-			  
-			state.actions.loadSomeData(); <---- calling this function from the flux.js actions
-			
-			Esta función es equivalente a "window.onload", y solo se ejecuta cuando se inicia la aplicación.
-			*/
-			state.actions.getUsers();
-			
+			state.actions.getCharacters();
 		}, []);
 
 		/* 
