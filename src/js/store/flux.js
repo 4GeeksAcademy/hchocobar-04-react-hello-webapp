@@ -3,7 +3,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 		store: {
 			cohorte: 'Spain-50',
 			isLogin: false,
-			favorites: ['item 1', 'item 2', 'item 3'],
+			favorites: [],
 			characters: [],
 			currentCharacters: {},
 			planets: [],
