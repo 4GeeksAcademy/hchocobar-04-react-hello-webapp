@@ -7,6 +7,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			characters: [],
 			currentCharacters: {},
 			planets: [],
+			users: []
 		},
 		actions: {
 			addFavorites: (item) => {
@@ -19,6 +20,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({favorites: store.favorites.filter( (item, id) => { return item != name; }  )})
 			},
 			getCharacters: async () => {
+				let characters = localStorage.getItem('characters')
+				// verifico si characters es undefined o obtuve algo
+				if (characters) {
+					setStore({ characters: JSON.parse(characters)})
+					// Que pasa si lo que tengo en el localStorage es distinto a lo que tengo en la API
+					return
+				}
 				// const url = 'https://www.swapi.tech/api/' + 'people';
 				const url = process.env.API_URL + 'people';
 				const options = {method: 'GET'};
@@ -56,6 +64,58 @@ const getState = ({ getStore, getActions, setStore }) => {
 				} else {
 					// tratamos el error
 					console.log('Error:', response.status, response.statusText);
+				}
+			},
+			getUsers: async () => {
+				const urlBase = 'https://playground.4geeks.com/apis/fake/contact/agenda'
+				const slugAgenda = '/spain50'
+				const url = urlBase + slugAgenda;
+				const options = {
+					method: 'GET'
+				};
+				const response = await fetch(url, options);
+				if (response.ok) {
+					const data = await response.json()
+					setStore({ "users": data })
+					localStorage.setItem('usersLocal', JSON.stringify(data));
+				} else {
+					console.log('Error:', response.status, response.statusText)
+				}
+				return
+			},
+			createContact: async (newContact) => {
+				const urlBase = 'https://playground.4geeks.com/apis/fake/contact/'
+				const slugAgenda = '/spain50'
+				const url = urlBase;
+				console.log(newContact)
+				const options = {
+					method: 'POST',
+					headers: {'Content-Type': 'application/json'},
+					body: JSON.stringify(newContact)
+				};
+				const response = await fetch(url, options);
+				if (response.ok) {
+					const data = await response.json()
+					getActions().getUsers();
+
+				} else {
+					console.log('Error:', response.status, response.statusText)
+				}
+				return
+			},
+			deleteContact: async (id) => {
+				const urlBase = 'https://playground.4geeks.com/apis/fake/contact/'
+				const url = urlBase + id
+				const options = {
+					method: 'DELETE'
+				}
+				const response = await fetch(url, options)
+				if (response.ok) {
+					const data = await response.json()
+					getActions().getUsers();
+				} else {
+					// tratamiendo del error
+					console.log('Error:', response.status, response.statusText)
 				}
 			}
 		}
