@@ -7,7 +7,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			characters: [],
 			currentCharacters: {},
 			planets: [],
-			users: []
+			contacts: []
 		},
 		actions: {
 			addFavorites: (item) => {
@@ -66,7 +66,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log('Error:', response.status, response.statusText);
 				}
 			},
-			getUsers: async () => {
+			getContacts: async () => {
 				const urlBase = 'https://playground.4geeks.com/apis/fake/contact/agenda'
 				const slugAgenda = '/spain50'
 				const url = urlBase + slugAgenda;
@@ -76,7 +76,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const response = await fetch(url, options);
 				if (response.ok) {
 					const data = await response.json()
-					setStore({ "users": data })
+					setStore({ "contacts": data })
 					localStorage.setItem('usersLocal', JSON.stringify(data));
 				} else {
 					console.log('Error:', response.status, response.statusText)
@@ -96,7 +96,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const response = await fetch(url, options);
 				if (response.ok) {
 					const data = await response.json()
-					getActions().getUsers();
+					getActions().getContacts();
 
 				} else {
 					console.log('Error:', response.status, response.statusText)
@@ -112,7 +112,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const response = await fetch(url, options)
 				if (response.ok) {
 					const data = await response.json()
-					getActions().getUsers();
+					getActions().getContacts();
 				} else {
 					// tratamiendo del error
 					console.log('Error:', response.status, response.statusText)

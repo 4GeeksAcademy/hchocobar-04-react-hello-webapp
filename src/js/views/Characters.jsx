@@ -17,7 +17,7 @@ export const Characters = () => {
             event.target.src = 'https://starwars-visualguide.com/assets/img/placeholder.jpg'
           }
           return (
-            <div className="card border-dark my-3 text-bg-dark">
+            <div className="card border-dark my-3 text-bg-dark" key={item.uid}>
               <img alt="" src={`${urlImg}${item.uid}.jpg`} />
               <div className="card-body">
                 <h5 className="card-title">{item.name}</h5>

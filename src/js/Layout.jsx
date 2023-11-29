@@ -13,6 +13,10 @@ import { File404 } from "./views/File404.jsx";
 import { Favorites } from "./component/Favites.jsx";
 import { Characters } from "./views/Characters.jsx";
 import { CharacterDetails } from "./views/CharactersDetails.jsx";
+import { Contacts } from "./views/Contacts.jsx";
+import { ContactDetails } from "./views/ContactDetails.jsx";
+import { AddContact } from "./views/AddContact.jsx";
+
 
 // Create your first component
 const Layout = () => {
@@ -28,6 +32,9 @@ const Layout = () => {
 						<Route path="/" element={<Home />} />
 						<Route path="/characters" element={<Characters/>}/>
 						<Route path="/characters/:idCharacter" element={<CharacterDetails/>}/>
+						<Route path="/contacts" element={<Contacts/>}/>
+						<Route path="/contacts/:idContact" element={<ContactDetails/>}/>
+						<Route path='/add-contact' element={<AddContact/>} />
 						<Route path="/favorites" element={<Favorites/>} />
 						<Route path="*" element={<File404/>} />
 					</Routes>

@@ -28,6 +28,7 @@ const injectContext = (PassedComponent) => {
 
 		useEffect(() => {
 			state.actions.getCharacters();
+			state.actions.getContacts();
 		}, []);
 
 		/* 
