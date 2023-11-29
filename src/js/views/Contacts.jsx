@@ -43,7 +43,7 @@ export const Contacts = () => {
                     className="img-fluid rounded-start" alt="..."
                     style={{ width: '150px' }} />
                 </div>
-                <div className="col-md-7">
+                <div className="col-md-6">
                   <div className="card-body">
                     <h5 className="card-title">{item.full_name}</h5>
                     <p className="card-text">{item.email}</p>
@@ -53,8 +53,14 @@ export const Contacts = () => {
                     {/* <Link to={`/contacts/${id}`} className="btn btn-primary">Details</Link> */}
                   </div>
                 </div>
-                <div className="col-md-2">
-                  <div className="card-body">
+                <div className="col-md-3">
+                  <div className="card-body d-flex justify-content-around">
+                    <Link to="/contact-form/view">
+                      <span onClick={() => actions.currentContact(item)}><i className="fa fa-eye fa-lg"></i></span>
+                    </Link>
+                    <Link to="/contact-form/edit">
+                      <span onClick={() => actions.currentContact(item)}><i className="fa fa-edit fa-lg"></i></span>
+                    </Link>
                     <span onClick={() => handleDelete(item.id)}><i className="fa fa-trash fa-lg text-danger"></i></span>
                   </div>
                 </div>

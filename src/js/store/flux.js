@@ -7,9 +7,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 			characters: [],
 			currentCharacters: {},
 			planets: [],
-			contacts: []
+			contacts: [],
+			currentContact: {full_name: '', phone: '', email: '', address:''}
 		},
 		actions: {
+			currentContact: (contact) => { setStore({ currentContact: contact}) },
 			addFavorites: (item) => {
 				const store = getStore();
 				setStore({favorites: [...store.favorites, item ]})  // opcion 1
