@@ -10,7 +10,7 @@ import { Footer } from "./component/Footer.jsx";
 import { Home } from "./views/Home.jsx";
 import { Demo } from "./views/demo";
 import { Single } from "./views/single";
-import { Contact } from "./views/Contact.jsx";
+import { Contacts } from "./views/Contacts.jsx";
 import { Login } from "./views/Login.jsx";
 
 
@@ -28,7 +28,7 @@ const Layout = () => {
 					<Navbar />
 					<Routes>
 						<Route path="/" element={<Home />} />
-						<Route path='/contacts' element={<Contact/>}/>
+						<Route path='/contacts' element={<Contacts/>}/>
 						<Route path="/login" element={<Login/>}/>
 						<Route path="/demo" element={<Demo />} />
 						<Route path="/single/:theid" element={<Single />} />
