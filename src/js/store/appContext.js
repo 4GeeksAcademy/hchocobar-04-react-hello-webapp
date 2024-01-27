@@ -38,6 +38,7 @@ const injectContext = (PassedComponent) => {
 			Esta función es equivalente a "window.onload", y solo se ejecuta cuando se inicia la aplicación.
 
 			*/
+			state.actions.getUsers();
 		}, []);
 
 		/* 

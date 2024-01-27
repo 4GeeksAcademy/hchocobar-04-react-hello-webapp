@@ -1,11 +1,37 @@
-const getState = ({ getStore, getActions, setStore }) => {
+const getState = ( {getStore, getActions, setStore} ) => {
 	return {
 		store: {
 			demo: [{title: "FIRST", background: "white", initial: "white"},
  						 {title: "SECOND", background: "white", initial: "white"},
-						 {title: "SECOND", background: "white", initial: "white"}]
+						 {title: "SECOND", background: "white", initial: "white"}],
+			titulo: 'Flux con React',
+			myArray: [],
+			myObject: {},
+			isLogin: false,
+			cohorte: 'Spain 54',
+			favorites: [],
+			users: [],
+			isAdmin: false
 		},
 		actions: {
+			login: () => {setStore( { isLogin: true } )},
+			logout: () => {setStore( { isLogin: false } )},
+			getUsers: async () => {
+				const url = 'https://jsonplaceholder.typicode.com/users'; 
+				const options = {
+					method: 'GET'
+				};
+				const response = await fetch(url, options);
+				if (!response.ok) {
+					// Tratar error
+					console.log('Error en el fetch', response.status, response.statusText)
+					return response.status
+				}
+				const data = await response.json()
+				console.log(data)
+				// El código con la lógica que necesito 
+				setStore( { users: data } )
+			},
 			exampleFunction: () => {getActions().changeColor(0, "green");},  // Use getActions to call a function within a fuction
 			loadSomeData: () => { /*fetch().then().then(data => setStore({ "foo": data.bar }))*/ },
 			changeColor: (index, color) => {
