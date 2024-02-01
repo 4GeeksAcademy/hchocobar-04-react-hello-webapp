@@ -1,17 +1,23 @@
 import React, { useContext } from "react";  // 1. Importar el hook useContext 
 // 2. Importar el Context desde el archivo appContext.js
 import { Context } from '../store/appContext.js';
+import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 
 
 export const Contacts = () => {
   // 3. Desecturar store, actions utilizando el hook useContext desde Context
   const { store, actions } = useContext(Context);
-  console.log(store.cohorte)
+  const navigate = useNavigate()
 
   const viewTask = (item) => {
+    console.log(item)
+    navigate('/contacts/' + item - 1)
   }
 
   const editTask = (item) => {
+    
+
   }
 
   const deleteTask = (item) => {
@@ -23,17 +29,19 @@ export const Contacts = () => {
       <h2 className="text-primary">{store.cohorte}</h2>
       <ul className="list-group">
         {store.users.map((item) => 
-          <li class="list-group-item d-flex justify-content-between">
+          <li key={item.id} className="list-group-item d-flex justify-content-between">
             {item.name}
             <div>
-              <span onClick={() => { viewTask(item) }} className="mx-2">
-                <i class="fas fa-eye"></i>
-              </span>
+                <Link to={'/contacts/' + item.id}>
+                  <span className="mx-2">
+                    <i className="fas fa-eye"></i>
+                  </span>
+                </Link>
               <span onClick={() => { editTask(item) }} className="mx-2">
-                <i class="fas fa-edit"></i>
+                <i className="fas fa-edit"></i>
               </span>
               <span onClick={() => { deleteTask(item) }} className="mx-2 text-danger">
-                <i class="fas fa-trash"></i>
+                <i className="fas fa-trash"></i>
               </span>
             </div>
           </li>

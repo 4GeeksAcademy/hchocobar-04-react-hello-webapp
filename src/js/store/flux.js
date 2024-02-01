@@ -14,9 +14,21 @@ const getState = ( {getStore, getActions, setStore} ) => {
 			isAdmin: false
 		},
 		actions: {
-			login: () => {setStore( { isLogin: true } )},
-			logout: () => {setStore( { isLogin: false } )},
+			login: () => {
+				setStore( { isLogin: true } );
+				localStorage.setItem('isLogin', true)
+			},
+			logout: () => {
+				setStore( { isLogin: false } );
+				localStorage.removeItem('isLogin');
+				localStorage.removeItem('usuarios');
+			},
 			getUsers: async () => {
+				const userLocal = localStorage.getItem('usuarios')
+				if (userLocal) {
+					// setStore( () => { users: userLocal } );
+					// return
+				}
 				const url = 'https://jsonplaceholder.typicode.com/users'; 
 				const options = {
 					method: 'GET'
@@ -31,6 +43,7 @@ const getState = ( {getStore, getActions, setStore} ) => {
 				console.log(data)
 				// El código con la lógica que necesito 
 				setStore( { users: data } )
+				localStorage.setItem('usuarios', JSON.stringify(data))
 			},
 			exampleFunction: () => {getActions().changeColor(0, "green");},  // Use getActions to call a function within a fuction
 			loadSomeData: () => { /*fetch().then().then(data => setStore({ "foo": data.bar }))*/ },
