@@ -16,8 +16,12 @@ export const Contacts = () => {
   }
 
   const editTask = (item) => {
-    
+    actions.assignUser(item);
+    navigate('/contacts-edit');
+  }
 
+  const favoriteTask = (item) => {
+    actions.addFavorites(item.name)
   }
 
   const deleteTask = (item) => {
@@ -39,6 +43,9 @@ export const Contacts = () => {
                 </Link>
               <span onClick={() => { editTask(item) }} className="mx-2">
                 <i className="fas fa-edit"></i>
+              </span>
+              <span onClick={() => { favoriteTask(item) }} className="mx-2">
+                <i className="far fa-heart text-warning"></i>
               </span>
               <span onClick={() => { deleteTask(item) }} className="mx-2 text-danger">
                 <i className="fas fa-trash"></i>
