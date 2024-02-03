@@ -33,7 +33,7 @@ const Layout = () => {
 						<Route path="/" element={<Home />} />
 						<Route path='/contacts' element={<Contacts/>}/>
 						<Route path='/contacts/:idContact' element={<ContactDatails/>}/>
-						{/* <Route path='/contacts-edit' element={<ContactEdit datos=[/>}/> */}
+						<Route path='/contacts-edit' element={<ContactEdit/>}/>
 						<Route path="/login" element={<Login/>}/>
 						<Route path='/contact-list' element={<ContactList/>}/>
 						<Route path='/create-contact' element={<CreateContact/>}/>

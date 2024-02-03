@@ -5,15 +5,15 @@ const getState = ( {getStore, getActions, setStore} ) => {
  						 {title: "SECOND", background: "white", initial: "white"},
 						 {title: "SECOND", background: "white", initial: "white"}],
 			titulo: 'Flux con React',
-			myArray: [],
-			myObject: {},
 			isLogin: false,
 			cohorte: 'Spain 54',
 			favorites: [],
 			users: [],
-			isAdmin: false,
 			agenda: 'agenda-Irene',
-			contacts: null
+			contacts: null,
+			currentUser: null,
+			isAdmin: false,
+			statusView: ''  // edit, view
 		},
 		actions: {
 			login: () => {
@@ -24,6 +24,14 @@ const getState = ( {getStore, getActions, setStore} ) => {
 				setStore( { isLogin: false } );
 				localStorage.removeItem('isLogin');
 				localStorage.removeItem('usuarios');
+			},
+			assignUser: (item) => { setStore({ currentUser: item} )},
+			clearUser: () => { setStore({ currentUser: null })},
+			addFavorites: (newFavorite) => {
+				setStore({ favorites: [...getStore().favorites, newFavorite]})
+			},
+			removeFavorites: (item, array) => {
+				setStore({favorites: array.filter((element) => element != item)})
 			},
 			getUsers: async () => {
 				const userLocal = localStorage.getItem('usuarios')

@@ -1,6 +1,7 @@
 import React, { useContext } from "react";  // 1. 
 import { Link } from "react-router-dom";
 import { Context } from '../store/appContext.js'  // 2. 
+import { BtnFavorites } from "./BtnFavorites.jsx";
 
 export const Navbar = () => {
 	const { store, actions } = useContext(Context)  // 3.
@@ -32,6 +33,7 @@ export const Navbar = () => {
 					</button>
 				</Link>
 			</div>
+			<BtnFavorites/>
 		</nav>
 	);
 };
