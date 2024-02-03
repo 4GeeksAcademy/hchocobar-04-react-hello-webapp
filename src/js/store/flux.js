@@ -11,7 +11,9 @@ const getState = ( {getStore, getActions, setStore} ) => {
 			cohorte: 'Spain 54',
 			favorites: [],
 			users: [],
-			isAdmin: false
+			isAdmin: false,
+			agenda: 'agenda-Irene',
+			contacts: null
 		},
 		actions: {
 			login: () => {
@@ -44,6 +46,25 @@ const getState = ( {getStore, getActions, setStore} ) => {
 				// El código con la lógica que necesito 
 				setStore( { users: data } )
 				localStorage.setItem('usuarios', JSON.stringify(data))
+			},
+			addContact: async (dataToSend) => {
+				const options = {
+					method: 'POST',
+					body: JSON.stringify(dataToSend),
+					headers: {'Content-type': 'application/json'}
+				}
+				const response = await fetch('https://playground.4geeks.com/apis/fake/contact/', options)
+				if (!response.ok) return
+				const data = await response.json();
+				// invocar el actions que me obtenga todos los contactos.
+				getActions().getContacts();
+			},
+			getContacts: async () => {
+				const response = await fetch('https://playground.4geeks.com/apis/fake/contact/agenda/' + getStore().agenda )
+				if (!response.ok) return
+				const data = await response.json();
+				setStore({ contacts: data })
+				localStorage.setItem('contactList', JSON.stringify(data))
 			},
 			exampleFunction: () => {getActions().changeColor(0, "green");},  // Use getActions to call a function within a fuction
 			loadSomeData: () => { /*fetch().then().then(data => setStore({ "foo": data.bar }))*/ },
