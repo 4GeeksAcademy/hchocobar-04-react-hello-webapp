@@ -39,6 +39,7 @@ const injectContext = (PassedComponent) => {
 
 			*/
 			state.actions.getUsers();
+			state.actions.getContacts();
 		}, []);
 
 		/* 

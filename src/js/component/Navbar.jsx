@@ -18,6 +18,12 @@ export const Navbar = () => {
 				<span className="navbar-brand mb-0 h1">{store.cohorte}</span>
 			</Link>
 			<div className="ml-auto">
+				<Link to="/create-contact">
+					<button className="btn btn-primary me-3">Create Contact</button>
+				</Link>
+				<Link to="/contact-list">
+					<button className="btn btn-warning me-3">Contact List</button>
+				</Link>
 				<Link to="/contacts">
 					<button className="btn btn-primary me-3">Contacts</button>
 				</Link>
