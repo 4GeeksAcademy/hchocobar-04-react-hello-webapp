@@ -21,7 +21,7 @@ export const Navbar = () => {
 					<button className="btn btn-primary me-3">Create Contact</button>
 				</Link>
 				<Link to="/contact-list">
-					<button className="btn btn-primary me-3">Contact List</button>
+					<button className="btn btn-warning me-3">Contact List</button>
 				</Link>
 				<Link to="/contacts">
 					<button className="btn btn-primary me-3">Contacts</button>
