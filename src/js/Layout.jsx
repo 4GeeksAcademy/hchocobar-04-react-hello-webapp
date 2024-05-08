@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 // Setting Context
-import injectContext from "./store/appContext";
+import injectContext from "./store/appContext.js";
 // Importar Vistas
 import { Home } from "./views/Home.jsx";
 import { Demo } from "./views/demo";
@@ -10,6 +10,8 @@ import { Single } from "./views/single";
 // Importamos componentes
 import { Navbar } from "./component/Navbar.jsx";
 import { Footer } from "./component/Footer.jsx";
+import { UsersJPH } from "./views/UsersJPH.jsx";
+import { DetailUsersJPH } from "./views/DetailUsersJPH.jsx";
 
 
 // Create your first component
@@ -27,6 +29,8 @@ const Layout = () => {
 					<Routes>
 						<Route path="/" element={<Home />} />
 						<Route path="/demo" element={<Demo />} />
+						<Route path="/users" element={<UsersJPH />} />
+						<Route path="/user-details/:id" element={<DetailUsersJPH />} />
 						<Route path="/single/:theid" element={<Single />} />
 						<Route path="*" element={<h1>Not found!</h1>} />
 					</Routes>
