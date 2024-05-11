@@ -8,7 +8,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			isLogin: false,
 			users: [],
 			title: '',
-			currentUser: {}
+			currentUser: null,
+			message: null
 		},
 		actions: {
 			exampleFunction: () => {getActions().changeColor(0, "green");}, // Use getActions to call a function within a fuction
@@ -37,7 +38,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				console.log(data);
 				setStore({ users: data });
 			},
-			settingUser: (user) => {setStore({currentUser: user}) }
+			settingUser: (user) => {setStore({currentUser: user}) },
+			settingMessage: (text) => {setStore({message: text})}
 		}
 	};
 };

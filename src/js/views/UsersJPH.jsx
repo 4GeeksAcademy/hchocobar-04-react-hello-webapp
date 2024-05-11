@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext.js";
 import { Link } from "react-router-dom";
 
@@ -8,14 +8,19 @@ export const UsersJPH = () => {
 
   const handlEye = (user) => {
     actions.settingUser(user)
+    // actions.settingUser('hola')
     // Si tengo que realizar un fetch() para traer datos de una API...
     //    opcion 1: hacer aquí el fetch() a la API
     //    opcion 2: ejecutar un actions que tenga el fetch() a la API
   }
 
+  useEffect(() => {
+    actions.settingMessage('Esto está funcionado bien')
+  }, [])
+
   return (
     <div className="container text-start">
-      <h1 className="text-center text-success">Consumiendo APIs con fetch()</h1>
+      <h1 className="text-center text-success">Consumiendo APIs</h1>
         <ul className="list-group">
           {store.users.map((item) => 
             <li key={item.id} className="list-group-item d-flex justify-content-between">
@@ -26,8 +31,12 @@ export const UsersJPH = () => {
                   onClick={() => handlEye(item)}>
                   <i className="far fa-eye"></i>
                 </Link>
-                <span className="text-success me-2"><i className="far fa-edit"></i></span>
-                <span className="text-danger"><i className="fas fa-trash"></i></span>
+                <span className="text-success me-2">
+                  <i className="far fa-edit"></i>
+                </span>
+                <span className="text-danger">
+                  <i className="fas fa-trash"></i>
+                </span>
               </div>
             </li>
           )}

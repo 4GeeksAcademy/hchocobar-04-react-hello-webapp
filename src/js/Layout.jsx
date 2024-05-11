@@ -12,6 +12,7 @@ import { Navbar } from "./component/Navbar.jsx";
 import { Footer } from "./component/Footer.jsx";
 import { UsersJPH } from "./views/UsersJPH.jsx";
 import { DetailUsersJPH } from "./views/DetailUsersJPH.jsx";
+import { Alert } from "./component/Alert.jsx";
 
 
 // Create your first component
@@ -26,6 +27,7 @@ const Layout = () => {
 			<BrowserRouter basename={basename}>
 				<ScrollToTop>
 					<Navbar />
+					<Alert/>
 					<Routes>
 						<Route path="/" element={<Home />} />
 						<Route path="/demo" element={<Demo />} />
