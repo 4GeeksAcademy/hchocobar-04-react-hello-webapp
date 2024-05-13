@@ -9,7 +9,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 			users: [],
 			title: '',
 			currentUser: null,
-			message: null
+			message: null,
+			planets: null,
+			currentPlanetUrl : '',
+			currentPlanet: null
 		},
 		actions: {
 			exampleFunction: () => {getActions().changeColor(0, "green");}, // Use getActions to call a function within a fuction
@@ -29,6 +32,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ demo: demo });
 			},
 			getUsersJPH: async () => {
+				// Preguntar si estos datos lo tengo en localStorage
+				if (localStorage.getItem('usersLocalStorage')) {
+					// si, Llevar los datos del localStorage al store (flux)
+					setStore({ users: JSON.parse(localStorage.getItem('usersLocalStorage')) });
+					return;
+				} 
+				// no, traer los datos de la API (fetch) y luego grabarlos en el localStorage
 				const response = await fetch('https://jsonplaceholder.typicode.com/users');
 				if (!response.ok) {
 					console.log('Error');
@@ -37,9 +47,38 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const data = await response.json();
 				console.log(data);
 				setStore({ users: data });
+				localStorage.setItem('usersLocalStorage', JSON.stringify(data))
 			},
 			settingUser: (user) => {setStore({currentUser: user}) },
-			settingMessage: (text) => {setStore({message: text})}
+			settingMessage: (text) => {setStore({message: text})},
+			settingPlanetURL: (text) => {setStore({currentPlanetUrl: text})},
+			getPlanets: async () => {
+				if (localStorage.getItem('planets')) {
+					setStore({ planets: JSON.parse(localStorage.getItem('planets')) });
+					return;
+				} 
+				const response = await fetch('https://www.swapi.tech/api/planets');
+				if (!response.ok) {
+					console.log('Error');
+					return
+				}
+				const data = await response.json();
+				console.log(data);
+				setStore({ planets: data.results });
+				localStorage.setItem('planets', JSON.stringify(data.results))
+			},
+			getCurrentPlanet: async () => {
+				const uri = getStore().currentPlanetUrl;
+				console.log(uri);
+				const response = await fetch(uri);
+				if (!response.ok) {
+					console.log('Error');
+					return
+				}
+				const data = await response.json();
+				console.log(data.result);
+				setStore({ currentPlanet: data.result });
+			}
 		}
 	};
 };
