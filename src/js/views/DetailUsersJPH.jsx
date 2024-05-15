@@ -10,9 +10,9 @@ export const DetailUsersJPH = () => {
   const navigate = useNavigate();
 
   const userExist = () => {
-    const detalles = store.users.filter((item) => item.id == params.userId);  // deveulve un array
-    if (detalles.length == 1) {
-      console.log(detalles);
+    if (localStorage.getItem('usersLocalStorage')) {
+      actions.settingUsers(localStorage.getItem('usersLocalStorage'));
+      const detalles = store.users.filter((item) => item.id == params.userId);  // deveulve un array
       actions.settingUser(detalles[0]);
     } else {
       navigate('/users');
@@ -37,7 +37,7 @@ export const DetailUsersJPH = () => {
 
   return (
     <div className="row justify-content-center">
-      <div className="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-2 col-xxl-1">
+      <div className="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-2">
         {!store.currentUser ? 
             <Spinner />
           : 
