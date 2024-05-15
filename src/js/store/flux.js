@@ -1,7 +1,7 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			cohorte: 'Spain-50',
+			cohorte: 'Spain-65',
 			isLogin: false,
 			favorites: [],
 			characters: [],
@@ -12,6 +12,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 		},
 		actions: {
 			currentContact: (contact) => { setStore({ currentContact: contact}) },
+			currentCharacters: (character) => { setStore({ currentCharacters: character}) },
 			addFavorites: (item) => {
 				const store = getStore();
 				setStore({favorites: [...store.favorites, item ]})  // opcion 1
