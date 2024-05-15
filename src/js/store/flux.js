@@ -52,6 +52,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			settingUser: (user) => {setStore({currentUser: user}) },
 			settingMessage: (text) => {setStore({message: text})},
 			settingPlanetURL: (text) => {setStore({currentPlanetUrl: text})},
+			settingUsers: (users) => {setStore({users: users}) },
 			getPlanets: async () => {
 				if (localStorage.getItem('planets')) {
 					setStore({ planets: JSON.parse(localStorage.getItem('planets')) });
