@@ -10,8 +10,10 @@ export const DetailUsersJPH = () => {
   const navigate = useNavigate();
 
   const userExist = () => {
-    if (localStorage.getItem('usersLocalStorage')) {
-      actions.settingUsers(localStorage.getItem('usersLocalStorage'));
+    const users = JSON.parse(localStorage.getItem('usersLocalStorage'));
+    console.log(users)
+    if (users) {
+      actions.settingUsers(users);
       const detalles = store.users.filter((item) => item.id == params.userId);  // deveulve un array
       actions.settingUser(detalles[0]);
     } else {
