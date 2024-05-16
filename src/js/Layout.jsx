@@ -15,6 +15,8 @@ import { DetailUsersJPH } from "./views/DetailUsersJPH.jsx";
 import { Alert } from "./component/Alert.jsx";
 import { Planets } from "./views/Planets.jsx";
 import { DetailPlanets } from "./views/DetailPlanets.jsx";
+import { Contacts } from "./views/Contacts.jsx";
+import { AddContact } from "./views/AddContact.jsx";
 
 
 // Create your first component
@@ -37,6 +39,8 @@ const Layout = () => {
 						<Route path="/user-details/:userId" element={<DetailUsersJPH />} />
 						<Route path="/planets" element={<Planets />} />
 						<Route path="/detail-planets" element={<DetailPlanets />} />
+						<Route path="/contacts" element={<Contacts />} />
+						<Route path="/add-contact" element={<AddContact />} />
 
 						<Route path="/single/:theid" element={<Single />} />
 						<Route path="*" element={<h1>Not found!</h1>} />
