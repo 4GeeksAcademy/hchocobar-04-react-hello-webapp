@@ -12,7 +12,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 			message: null,
 			planets: null,
 			currentPlanetUrl : '',
-			currentPlanet: null
+			currentPlanet: null,
+			apiContact: 'https://playground.4geeks.com/contact/',
+			agenda: 'spain',
+			contacts: null
 		},
 		actions: {
 			exampleFunction: () => {getActions().changeColor(0, "green");}, // Use getActions to call a function within a fuction
@@ -79,6 +82,34 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const data = await response.json();
 				console.log(data.result);
 				setStore({ currentPlanet: data.result });
+			},
+			getContacts: async () => {
+				const uri = getStore().apiContact + 'agendas/' + getStore().agenda + '/contacts'
+				const response = await fetch(uri);
+				if (!response.ok) {
+					console.log('error', response.status, response.statusText);
+					return
+				}
+				const data = await response.json();
+				setStore({contacts: data.contacts});
+				console.log(data.contacts);
+			},
+			addContact: async (dataToSend) => {
+				const uri = `${getStore().apiContact}agendas/${getStore().agenda}/contacts`;
+				const otptions = {
+					method: 'POST',
+					headers: {
+						'Content-type': 'application/json'
+					},
+					body: JSON.stringify(dataToSend)
+				}
+				const response = await fetch(uri, otptions);
+				if (!response.ok) {
+					console.log('error', response.status, response.statusText);
+					return
+				}
+				// const data = await response.json();
+				getActions().getContacts();
 			}
 		}
 	};
