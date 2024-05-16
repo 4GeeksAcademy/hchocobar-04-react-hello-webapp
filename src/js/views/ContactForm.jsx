@@ -15,7 +15,7 @@ export const ContactForm = () => {
     view = false;
   }
 
-  const [name, setName] = useState(store.currentContact.full_name);
+  const [name, setName] = useState(store.currentContact.name);
   const [address, setAddress] = useState(store.currentContact.address);
   const [phone, setPhone] = useState(store.currentContact.phone);
   const [email, setEmail] = useState(store.currentContact.email);
@@ -23,13 +23,8 @@ export const ContactForm = () => {
 
   const handleOnSubmit = (event) => {
     event.preventDefault();
-    const newContact = {
-      full_name: name,
-      address: address,
-      phone: phone,
-      email,
-      agenda_slug: 'spain50'
-    }
+    const newContact = {name, address, phone, email}
+    console.log('form:',newContact);
     actions.createContact(newContact)
     // 3. navigate('/contact')
     navigate('/contacts')

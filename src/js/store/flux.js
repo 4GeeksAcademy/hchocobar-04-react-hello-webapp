@@ -70,56 +70,54 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 			getContacts: async () => {
-				const urlBase = 'https://playground.4geeks.com/apis/fake/contact/agenda'
-				const slugAgenda = '/spain50'
-				const url = urlBase + slugAgenda;
+				const urlBase = 'https://playground.4geeks.com/contact/agendas/'
+				const slugAgenda = getStore().cohorte.toLowerCase()
+				const url = `${urlBase}${slugAgenda}`;
 				const options = {
 					method: 'GET'
 				};
 				const response = await fetch(url, options);
-				if (response.ok) {
-					const data = await response.json()
-					setStore({ "contacts": data })
-					localStorage.setItem('usersLocal', JSON.stringify(data));
-				} else {
+				if (!response.ok) {
 					console.log('Error:', response.status, response.statusText)
+					return
 				}
-				return
+				const data = await response.json()
+				setStore({ "contacts": data.contacts })
+				localStorage.setItem('usersLocal', JSON.stringify(data.contacts));
 			},
 			createContact: async (newContact) => {
-				const urlBase = 'https://playground.4geeks.com/apis/fake/contact/'
-				const slugAgenda = '/spain50'
-				const url = urlBase;
-				console.log(newContact)
+				const urlBase = 'https://playground.4geeks.com/contact/agendas/'
+				const slugAgenda = getStore().cohorte.toLowerCase()
+				const url = `${urlBase}${slugAgenda}/contacts`;
+				console.log('flux', newContact)
 				const options = {
 					method: 'POST',
 					headers: {'Content-Type': 'application/json'},
 					body: JSON.stringify(newContact)
 				};
 				const response = await fetch(url, options);
-				if (response.ok) {
-					const data = await response.json()
-					getActions().getContacts();
-
-				} else {
+				if (!response.ok) {
 					console.log('Error:', response.status, response.statusText)
+					return
 				}
-				return
+				// const data = await response.json()
+				getActions().getContacts();
 			},
 			deleteContact: async (id) => {
-				const urlBase = 'https://playground.4geeks.com/apis/fake/contact/'
-				const url = urlBase + id
+				const urlBase = 'https://playground.4geeks.com/contact/agendas/'
+				const slugAgenda = getStore().cohorte.toLowerCase()
+				const url = `${urlBase}${slugAgenda}/contacts/${id}`;
 				const options = {
 					method: 'DELETE'
 				}
 				const response = await fetch(url, options)
-				if (response.ok) {
-					const data = await response.json()
-					getActions().getContacts();
-				} else {
+				if (!response.ok) {
 					// tratamiendo del error
 					console.log('Error:', response.status, response.statusText)
+					return
 				}
+				const data = await response.json()
+				getActions().getContacts();
 			}
 		}
 	};

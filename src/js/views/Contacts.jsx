@@ -6,7 +6,8 @@ import { Link } from "react-router-dom";
 export const Contacts = () => {
   const { store, actions } = useContext(Context)  // 3. desestructurar store y actions desde hook (Context)
 
-  const urlImg = 'https://starwars-visualguide.com/assets/img/characters/'
+  //const urlImg = 'https://starwars-visualguide.com/assets/img/characters/';
+  const urlImg = 'https://randomuser.me/api/portraits/women/2';
 
   const handleError = (event) => {
     event.target.src = 'https://starwars-visualguide.com/assets/img/placeholder.jpg'
@@ -45,11 +46,10 @@ export const Contacts = () => {
                 </div>
                 <div className="col-md-6">
                   <div className="card-body">
-                    <h5 className="card-title">{item.full_name}</h5>
+                    <h4 className="card-title">{item.name}</h4>
                     <p className="card-text">{item.email}</p>
-                    <p className="card-text">{item.phone}</p>
-                    <p className="card-text">{item.address}</p>
-                    <p className="card-text">{item.id}</p>
+                    <p className="card-text"><strong>Phone</strong>: {item.phone}</p>
+                    <p className="card-text"><strong>Address</strong>: {item.address}</p>
                     {/* <Link to={`/contacts/${id}`} className="btn btn-primary">Details</Link> */}
                   </div>
                 </div>

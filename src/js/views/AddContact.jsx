@@ -15,13 +15,7 @@ export const AddContact = () => {
 
   const handleOnSubmit = (event) => {
     event.preventDefault();
-    const newContact = {
-      full_name: name, 
-      address: address, 
-      phone: phone, 
-      email, 
-      agenda_slug: 'spain50'
-    }
+    const newContact = {name, address, phone, email}
     actions.createContact(newContact)
     // 3. navigate('/contact')
     navigate('/contacts')
