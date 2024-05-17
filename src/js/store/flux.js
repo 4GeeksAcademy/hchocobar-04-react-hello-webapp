@@ -15,9 +15,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 			currentPlanet: null,
 			apiContact: 'https://playground.4geeks.com/contact/',
 			agenda: 'spain',
-			contacts: null
+			contacts: null,
+			counter: 0,
+			favorites: ['Hector']
 		},
 		actions: {
+			addFavorites: (newFavorite) => {setStore({favorites: [...getStore().favorites, newFavorite]})},
+			removeFavorites: (removeItem) => {
+				setStore({favorites: getStore().favorites.filter((item) => removeItem != item)})
+			},
+			incrementar: () => {setStore({counter: getStore().counter + 1})},
+			decrementar: () => {setStore({counter: getStore().counter - 1})},
 			exampleFunction: () => {getActions().changeColor(0, "green");}, // Use getActions to call a function within a fuction
 			loadSomeData: () => {/**fetch().then().then(data => setStore({ "foo": data.bar }))*/},
 			changeColor: (index, color) => {

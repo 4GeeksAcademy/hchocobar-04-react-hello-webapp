@@ -15,12 +15,21 @@ export const UsersJPH = () => {
     //    opcion 2: ejecutar un actions que tenga el fetch() a la API
   }
 
+  const incrementar = () => {actions.incrementar()};
+  const decrementar = () => {actions.decrementar()};
+
   useEffect(() => {
     actions.settingMessage('Esto está funcionado bien')
   }, [])
 
   return (
     <div className="container text-start">
+      <button className="btn btn-success" onClick={incrementar}>
+        +1
+      </button>
+      <button className="btn btn-danger ms-2" onClick={decrementar}>
+        -1
+      </button>
       <h1 className="text-center text-success">Consumiendo APIs</h1>
       <ul className="list-group">
         {!store.users ? 
@@ -31,6 +40,10 @@ export const UsersJPH = () => {
               <li key={item.id} className="list-group-item d-flex justify-content-between">
                 {item.name}
                 <div>
+                  <span className="text-warning me-2"
+                    onClick={() => actions.addFavorites(item.name)}>
+                    <i className="fas fa-heart"></i>
+                  </span>
                   <Link className="text-primary me-2" to={`/user-details/${item.id}`}
                     onClick={() => handlEye(item)}>
                     <i className="far fa-eye"></i>

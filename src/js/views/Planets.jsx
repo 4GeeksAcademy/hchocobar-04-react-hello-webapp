@@ -33,6 +33,10 @@ export const Planets = () => {
                       onClick={() => handlePlanet(item.url)}>
                       Detalles
                     </Link>
+                    <span className="btn btn-outline-warning text-warning ms-2"
+                      onClick={() => actions.addFavorites(item.name)}>
+                      <i className="fas fa-heart"></i>
+                    </span>
                   </div>
                 </div>
               )}
