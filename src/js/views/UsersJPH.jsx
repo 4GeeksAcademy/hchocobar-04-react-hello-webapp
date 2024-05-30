@@ -21,6 +21,10 @@ export const UsersJPH = () => {
 
   return (
     <div className="container text-start">
+      <button type="button" class="btn btn-primary"
+        onClick={() => actions.incrementar()}>
+        +1
+      </button>
       <h1 className="text-center text-success">Consumiendo APIs</h1>
       <ul className="list-group">
         {!store.users ? 
@@ -31,6 +35,10 @@ export const UsersJPH = () => {
               <li key={item.id} className="list-group-item d-flex justify-content-between">
                 {item.name}
                 <div>
+                  <span className="text-warning me-2"
+                    onClick={() => actions.addFavorites(item.name)}>
+                    <i className="far fa-heart"></i>
+                  </span>
                   <Link className="text-primary me-2" to={`/user-details/${item.id}`}
                     onClick={() => handlEye(item)}>
                     <i className="far fa-eye"></i>

@@ -18,6 +18,10 @@ export const Planets = () => {
   return (
     <div>
       <h1>Planetas</h1>
+      <button type="button" class="btn btn-danger"
+        onClick={() => actions.decrementar()}>
+        -1
+      </button>
       {!store.planets ? <Spinner /> :
         <div className="container">
           <div className="row">
@@ -33,6 +37,10 @@ export const Planets = () => {
                       onClick={() => handlePlanet(item.url)}>
                       Detalles
                     </Link>
+                    <span className="btn btn-warning ms-2"
+                      onClick={() => actions.addFavorites(item.name)}>
+                      <i className="far fa-heart"></i>
+                    </span>
                   </div>
                 </div>
               )}
